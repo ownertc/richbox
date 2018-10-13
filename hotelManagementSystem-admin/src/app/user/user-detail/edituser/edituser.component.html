@@ -1,0 +1,9 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <div nz-form-item>
+      <div nz-form-label nzSm="6" nzXs="24" nzRequired nzFor="email">E-mail</div>
+      <div nz-form-control nzSm="14" nzXs="24">
+        <nz-input formControlName="email" id="email"></nz-input>
+        <div nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</div>
+      </div>
+    </div>
+  </form>

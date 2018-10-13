@@ -1,0 +1,119 @@
+
+<div class="form_input">
+
+
+    <ul class="input_list">
+      <li>
+          <nz-input [(ngModel)]="inputData.inputValue" [nzPlaceHolder]="'请输入姓名'"></nz-input>
+      </li>
+      <li>
+          <nz-input [(ngModel)]="inputData.age" [nzPlaceHolder]="'年龄'"></nz-input>
+      </li>
+
+      <li>
+        
+         头像：  <input type="file" name="file" accept="image/*" (change)="changeImg($event)"/>
+        </li>
+        
+      <li>
+        性别: 
+        <nz-radio-group [(ngModel)]="inputData.sex">
+            <label nz-radio [nzValue]="'A'">
+              <span>男</span>
+            </label>
+            <label nz-radio [nzValue]="'B'">
+              <span>女</span>
+            </label>
+           
+          </nz-radio-group>
+      </li>
+
+   
+
+
+     
+      <li>
+        爱好:
+        <nz-checkbox-group [(ngModel)]="inputData.checkOptions"></nz-checkbox-group>
+        
+      </li>
+
+      <li>
+          等级: 
+          <nz-select style="width: 120px;" [(ngModel)]="inputData.checkedOption" [nzPlaceHolder]="'choose option'" nzAllowClear>
+              <nz-option
+                *ngFor="let option of options"
+                [nzLabel]="option.label"
+                [nzValue]="option"
+               >
+              </nz-option>
+             
+            </nz-select>
+      </li>
+
+      <li>
+          日期: 
+          <nz-datepicker [(ngModel)]="inputData.date" [nzPlaceHolder]="'Select date'"></nz-datepicker>
+      </li>
+
+
+
+      <li>
+        <quill-editor [(ngModel)]='inputData.content'></quill-editor>
+      </li>
+
+      <li>
+
+        <quill-editor>
+            <div quill-editor-toolbar>
+              <span class="ql-formats">
+                <select class="ql-font">
+                  <option value="aref">Aref Ruqaa</option>
+                  <option value="mirza">Mirza</option>
+                  <option selected>Roboto</option>
+                </select>
+                <select class="ql-align" [title]="'Aligment'">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+                <select class="ql-align" [title]="'Aligment2'">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+              </span>
+              <span class="ql-formats">
+                <div id="counter"></div>
+              </span>
+
+              <span class="ql-formats">
+
+                <button type="button" class="ql-header" value="1"></button>
+              </span>
+
+              <span class="ql-formats">
+
+                <button type="button" class="ql-header" value="2"></button>
+              </span>
+
+              <span title="超链接" class="ql-formats">
+                <button type="button" class="ql-link"></button>
+              </span>
+
+             
+            </div>
+          </quill-editor>
+
+
+
+      </li>
+      
+    </ul>
+
+      <button nz-button [nzType]="'primary'" (click)="doSubmit()">
+        <span>提交</span>
+      </button>
+</div>

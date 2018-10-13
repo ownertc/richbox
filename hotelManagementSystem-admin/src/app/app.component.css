@@ -1,0 +1,144 @@
+/*
+:host
+使用:host伪类选择器，用来选择组件宿主元素中的元素（相对于组件模板内部的元素）
+
+
+
+
+::ng-deep
+
+style its child component, we can use '::ng-deep':
+*/
+  :host ::ng-deep .ant-btn-primary:hover,  :host ::ng-deep  .ant-btn-primary:focus{
+      background: #B26fea;
+      border-color: #B26fea;
+}
+
+:host ::ng-deep .logo {
+    height: 80px !important;
+  }
+
+  :host ::ng-deep  .logoImg{
+    clear: both;
+    height: 80px !important;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+  }
+  :host ::ng-deep .ant-menu{
+    margin-top: 20px;
+  }
+  :host ::ng-deep .ant-layout-sider-collapsed .nav-text {
+    display: none;
+  }
+
+  :host ::ng-deep .ant-layout-sider-collapsed .ant-menu-submenu-title:after {
+    display: none;
+  }
+
+  :host ::ng-deep .ant-layout-sider-collapsed .anticon {
+    font-size: 16px;
+    margin-left: 8px;
+  }
+
+  :host ::ng-deep .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: color .3s;
+  }
+
+  :host ::ng-deep .trigger:hover {
+    color: #108ee9;
+  }
+  :host ::ng-deep .ant-layout-header{
+      height: 80px;
+      line-height: 80px;
+  }
+  :host ::ng-deep .ant-menu-submenu {
+    margin-bottom: 10px;
+  }
+  /*右浮动*/
+
+
+  .fl{
+      float: left;
+      padding-right: 10px;
+  }
+
+  /*设置logo*/
+
+  :host ::ng-deep .logo{
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+  }
+  
+  :host ::ng-deep .logo img{
+    
+      height: 32px;
+      float: left;
+  }
+  :host ::ng-deep .logo span{
+    color: #fff;
+  }
+  :host ::ng-deep  .ant-menu.ant-menu-dark .ant-menu-item-selected{
+    background: #6e7480;
+  }
+  :host ::ng-deep .ant-menu-inline .ant-menu-submenu-title{
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+  :host ::ng-deep .ant-menu-inline .ant-menu-item{
+    font-size: 16px;
+    color:#fff;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+  :host ::ng-deep .ant-layout-sider{
+    background: #5c616c;
+  }
+  :host ::ng-deep .ant-menu-dark{
+    background: #5c616c;
+    color: #fff;
+  }
+  :host ::ng-deep .ant-menu-dark .ant-menu-inline.ant-menu-sub{
+    background: #5c616c;
+  }
+  :host ::ng-deep .ant-menu-item > a{
+   color:#fff;
+  }
+ :host ::ng-deep .ant-menu-submenu-open  .ant-menu-submenu-title{
+    background: #B26fea;
+  }
+  :host ::ng-deep  .ant-menu-submenu-inline > .ant-menu-submenu-title:after{
+    display: none;
+  }
+  :host ::ng-deep  .ant-menu-dark .ant-menu-item > a{
+    color:#fff;
+  }
+  :host ::ng-deep .ant-table{
+    border-radius: 0px;
+  }
+  :host ::ng-deep .ant-table-thead > tr > th{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+  }
+  :host ::ng-deep  .ant-table-tbody > tr > td{
+    text-align: center;
+  }
+  :host ::ng-deep  .ant-btn-primary{
+    background: #B26fea;
+    border-color:#B26fea;
+  }
+  :host ::ng-deep .ant-pagination-item-active:focus, :host ::ng-deep .ant-pagination-item-active:hover {
+    background-color:#B26fea;
+    border-color:#B26fea;
+}
+:host ::ng-deep .ant-pagination-item-active{
+  background-color:#B26fea;
+  border-color:#B26fea;
+}

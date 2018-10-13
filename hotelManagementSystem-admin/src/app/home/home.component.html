@@ -1,0 +1,98 @@
+
+
+<nz-layout>
+    <!-- 侧边栏 -->
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo">
+          <img alt="Logo" src="assets/logo.png" class="logoImg">
+      </div>
+      <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+       <li nz-menu-item><span><span class="nav-text">首页</span></span></li>
+        <li nz-submenu>
+          <span title><span class="nav-text">客户管理</span></span>
+          <ul>
+            <li nz-menu-item> <a routerLink="/home/user/list" routerLinkActive="active">会员管理</a></li>
+            <li nz-menu-item><a routerLink="/home/user/vip" routerLinkActive="active">协议客管理</a></li>         
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><span class="nav-text">酒店管理</span></span>
+          <ul>
+            <li nz-menu-item>Team 1</li>
+            <li nz-menu-item>Team 2</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+            <span title><span class="nav-text">客房管理</span></span>
+            <ul>
+              <li nz-menu-item>Team 1</li>
+              <li nz-menu-item>Team 2</li>
+            </ul>
+          </li>
+          <li nz-submenu>
+              <span title><span class="nav-text">订单管理</span></span>
+              <ul>
+                <li nz-menu-item>Team 1</li>
+                <li nz-menu-item>Team 2</li>
+              </ul>
+          </li>
+          <li nz-submenu>
+              <span title><span class="nav-text">系统管理</span></span>
+              <ul>
+                <li nz-menu-item>Team 1</li>
+                <li nz-menu-item>Team 2</li>
+              </ul>
+          </li>
+          <li nz-submenu>
+              <span title><span class="nav-text">广告管理</span></span>
+              <ul>
+                <li nz-menu-item>Team 1</li>
+                <li nz-menu-item>Team 2</li>
+              </ul>
+          </li>
+          <li nz-submenu>
+              <span title><span class="nav-text">权限管理</span></span>
+              <ul>
+                <li nz-menu-item>Team 1</li>
+                <li nz-menu-item>Team 2</li>
+              </ul>
+          </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+  
+      <!-- 头部区域 -->
+      <nz-header style="background: #fff; padding:0;">
+        <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed" style="float:left"></i>
+        <nz-dropdown  style="float: right;margin-right: 40px">
+            <a class="ant-dropdown-link" nz-dropdown>
+             管理员<i class="anticon anticon-down"></i>
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a target="_blank" rel="noopener noreferrer" href="#">退出</a>
+              </li>
+             
+            </ul>
+          </nz-dropdown>
+  
+      </nz-header>
+  
+      <!-- 内容区域 -->
+      <nz-content style="min-height: 100vh; background: #eee">
+        <!-- 历史导航 -->
+       <!--  <nz-breadcrumb style="margin:12px 0;">
+          <nz-breadcrumb-item>User</nz-breadcrumb-item>
+          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+        </nz-breadcrumb> -->
+  
+        <!-- 右侧内容区域 -->
+  
+        <div style="background: #eee;min-height: 100vh">
+            <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+    </nz-layout>
+  </nz-layout>
+  

@@ -1,0 +1,65 @@
+.address{
+    width: 96vw;
+    padding: 0 2vw;
+    height: 60px;
+    background: #fff;
+    border-bottom: 4px solid #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.desc-address{
+    font-size: 14px;
+    color:#666;
+}
+.item{
+  width: 96vw;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.order-list{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+.order-desc{
+    font-size: 14px;
+    color:#333;
+    width:60%;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box; 
+    -webkit-box-orient:vertical; 
+    -webkit-line-clamp:2;
+}
+ .mint-cell-wrapper{
+font-size: 14px;
+border-bottom: 1px solid #eee;
+}
+.footer{
+    position: fixed;
+    width:100vw;
+    height: 48px;
+    bottom:60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top:1px solid #ccc;
+}
+.gopay{
+    width: 120px;
+    height:47.5px;
+    text-align: center;
+    line-height: 48px;
+    font-size: 16px;
+    color:#fff;
+    background: #333;
+}
+.other-list{
+    font-size: 14px;
+    color: #666;
+    margin: 20px 0;
+}

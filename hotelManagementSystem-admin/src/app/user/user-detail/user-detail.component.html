@@ -1,0 +1,16 @@
+<div class="userdetail-app" zType="flex" >
+      <div nz-row nzType="flex" nzJustify="space-around">
+          <div nz-col nzSpan="3">
+              <ul class="tabbar" >
+                  <li><a routerLink="/home/user/userDetail/baseinfo" routerLinkActive="active">基本信息</a></li>
+                  <li><a routerLink="/home/user/userDetail/edituser" routerLinkActive="active">编辑基本信息</a></li>
+                  <li><a routerLink="/home/user/userDetail/casumDetail" routerLinkActive="active">消费明细</a></li>
+                  <li><a routerLink="/home/user/userDetail/intergralDetail" routerLinkActive="active">积分明细</a></li>
+                  
+                </ul>
+          </div>
+          <div nz-col nzSpan="20" style="background: #fff;min-height: 80vh"> 
+              <router-outlet></router-outlet>
+           </div> 
+        </div>
+</div>

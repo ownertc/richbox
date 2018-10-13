@@ -1,0 +1,13 @@
+.address-list{
+    padding:0 2vw;
+    width:96vw;
+}
+.address-list .item{
+    padding: 15px 0;
+    font-size: 14px;
+    color:#666;
+    border-bottom: 1px solid #eee;
+}
+.item .user{
+    margin-top: 5px;
+}
