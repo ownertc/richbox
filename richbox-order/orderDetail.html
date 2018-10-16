@@ -9,15 +9,16 @@
 		<link rel="stylesheet" href="css/rest.css">
 		<link rel="stylesheet" href="css/confirmOrder.css">
 	</head>
-
 <body>
     <div id="app">
-         <div class="address">
+         <div class="address" style="padding-bottom: 10px">
              <div class="desc-address">
-                 <P v-text="orderDetail.ReceiveAddress"></P>
+                 <P style="font-size:14px;color:#000;padding:10px 0;border-bottom: 1px solid #eee;width:100vh">收货信息</P>
                  <p class="user"><span style="margin-right: 10px" v-text="orderDetail.Receiver"></span><span v-text="orderDetail.ReceiverPhone"></span></p>
+                 <P v-text="orderDetail.ReceiveAddress"></P>
              </div>
-            </div>
+           </div>
+        <P style="font-size:14px;color:#000;padding:10px;border-bottom: 1px solid #eee">商品明细</P>
          <ul class="order-list">
              <li class="item" v-for="(item,index) in orderDetail.GoodsList" :key="index">
                  <div style="width:60%;height: 100%;;display: table;"><P class="order-desc" style="display: table-cell;vertical-align: middle" v-text="item.GoodsName"></p></div>
@@ -40,5 +41,5 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/api.js"></script>
     <script src="js/request.js"></script>
-	<script src="js/orderDetail.js"></script>
+	<script src="js/orderDetail.js?version=1.8"></script>
 </html>

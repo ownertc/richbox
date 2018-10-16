@@ -1,3 +1,4 @@
+
 new Vue({
     el: "#app",
     data: {
@@ -5,6 +6,7 @@ new Vue({
         detailShow: false,
         bounceIn: false,
         num: 0,
+        res:0,
         maxpage: 1,
         totalPrice:0,
         totalCount:0,
@@ -96,10 +98,11 @@ new Vue({
             if (this.queryParam.pageNo <= this.maxpage) {
                 this.loading = true;
                 getFoodsList(this.queryParam).then(res => {
+                    this.res =res.Data.Count
                     this.$indicator.close()
                     this.loading = false;
                     this.queryParam.pageNo++;
-                    this.maxpage = Math.floor(res.Data.Count / this.queryParam.pageSize)
+                    this.maxpage = Math.ceil(res.Data.Count / this.queryParam.pageSize)
                     this.list = this.list.concat(res.Data.List)
                     this.list.forEach((item,index) => {
                         if (!item.num) {
@@ -125,10 +128,8 @@ new Vue({
             text: '加载中...',
             spinnerType: 'fading-circle'
           });
-        this.loadMore()
-        
+        this.loadMore() 
 
     }
-  
 
 })

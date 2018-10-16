@@ -13,6 +13,9 @@ new Vue({
             window.location.href='./address.html'
         },
         addOrder(){
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
             if(this.addressInfo){
                 this.$indicator.open({
                     text: '加载中...',
@@ -23,10 +26,18 @@ new Vue({
                     this.btnStatus=true
                     this.$indicator.close()
                     if(res.Code===200){
-                        initJsBridge(function () {
-                         window.WebViewJavascriptBridge.callHandler('callNativePay', res.Data, function (response) {  
-                          });
-                        })
+                        if(isiOS){
+                            initJsBridge(function () {
+                                window.WebViewJavascriptBridge.callHandler('callNativePay', res.Data, function (response) {  
+                                 });
+                               })
+                        }else if(isAndroid){
+                            initJsBridge(function () {
+                                window.WebViewJavascriptBridge.callHandler('callNativePay',JSON.stringify(res.Data), function (response) {  
+                                 });
+                               })
+                        }
+                       
                     }else{
                       this.$toast(res.ShowData)
                     }
@@ -57,5 +68,10 @@ new Vue({
           item.FoodGoodId=item.Id
           item.FoodCount=item.num
       });
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        if(isAndroid){
+            document.getElementsByClassName('footerBar')[0].style.bottom="0px"
+        }
    }
 })

@@ -10,6 +10,8 @@ function initJsBridge(readyCallback) {
     // 注册jsbridge
     function connectWebViewJavascriptBridge(callback) {
         if (isAndroid) {
+            document.getElementsByClassName('footerBar')[0].style.bottom="0px"
+            document.getElementsByTagName('ul')[0].style.marginBottom='80px'
             if (window.WebViewJavascriptBridge) {
                 callback(WebViewJavascriptBridge)
             } else {
@@ -24,6 +26,7 @@ function initJsBridge(readyCallback) {
             return;
         }
         if (isiOS) {
+            document.getElementsByClassName('footerBar')[0].style.bottom="0px"
             if (window.WebViewJavascriptBridge) {
                 return callback(WebViewJavascriptBridge);
             }
@@ -51,6 +54,7 @@ function initJsBridge(readyCallback) {
          
         // 只有在这里注册过的方法，在原声代码里才能用callHandler的方式调用
         bridge.registerHandler('callHtmlUserInfo', function (data, responseCallback) {
+           
             var userInfo =JSON.stringify(data)
            window.localStorage.setItem('userInfo',userInfo)
         });

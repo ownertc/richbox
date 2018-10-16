@@ -14,7 +14,7 @@
     <div id="app">
          <div class="address"  @click="goAddress()" v-if="!addressInfo"><span class="desc-address">收货地址</span><i class="fa fa-angle-right" style="font-size: 18px;color:#666"></i></div>
          <div class="desc-address"  @click="goAddress()" v-if="addressInfo" style="padding:10px;border-bottom: 4px solid #f7f7f7;">
-                <P style="font-size:14px;color:#000;padding:5px 0;border-bottom: 1px solid #eee">收货信息</P>
+                <P style="font-size:14px;color:#000;padding:10px 0;border-bottom: 1px solid #eee">收货信息</P>
                 <p class="user"><span style="margin-right: 10px" v-text="addressInfo.UserName"></span><span v-text="addressInfo.UserPhone"></span></p>
                 <P v-text="orderInfo.ReceiveAddress"></P>
            </div>
@@ -28,7 +28,7 @@
              
          </ul>
          <mt-field label="订单备注" placeholder="请输入备注信息" v-model="orderInfo.Remarks" style="font-size: 14px;"></mt-field>
-         <div class="footer">
+         <div class="footer footerBar">
            <p class="price" style="margin-left: 2vw"><span style="font-size:14px;margin-right: 10px;">合计</span><span>￥{{orderInfo.Amount}}</span></p>
            <div class="gopay" @click="addOrder" v-if="btnStatus">去结算</div>
            <div class="gopay" v-if="!btnStatus">去结算</div>
@@ -38,8 +38,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/initBrage.js"></script>
+    <script src="js/initBrage.js?version=1.8"></script>
 	<script src="js/api.js"></script>
 	<script src="js/request.js"></script>
-	<script src="js/confirmOrder.js"></script>
+	<script src="js/confirmOrder.js?version=1.8"></script>
 </html>
