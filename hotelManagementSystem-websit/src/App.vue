@@ -9,7 +9,6 @@
 <script>
 import HotelDatePicker from 'vue-hotel-datepicker'
 export default {
-
   data: function () {
     return {
 
@@ -25,6 +24,9 @@ export default {
 }
 </script>
 <style >
+body{
+  overflow-x: hidden
+}
  .anchorBL{
    display: none;
  }

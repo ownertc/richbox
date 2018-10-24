@@ -2,34 +2,34 @@
   <div>
     <p class="title">{{firstMothn.currYear}}年{{firstMothn.currMoth+1}}月</p>
     <table>
-      <tr><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
-      <tr v-for="(data,index) in firstMothn.currData " :key="index">
+      <tr style="padding:20rpx 0;background:#ccc"><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
+      <tr v-for="(data,index) in firstMothn.currData " :key="index" style="margin-top:20rpx;">
         <td v-for="(item,index1) in data" :key="index1" :class="{disabled:item.date<firstMothn.currDate||item.disabled,selected:firstMothn.currYear+'-'+(firstMothn.currMoth+1)+'-'+item.date==selectedDate&&!item.disabled}" >
           <span v-if="item.date>=firstMothn.currDate&&!item.disabled" @click="setData(firstMothn.currYear,(firstMothn.currMoth+1),item.date)" style="display:inline-block;width:100%;height:80rpx;line-height:80rpx;text-align:center">{{item.date}}</span>
           <span v-if="item.date<firstMothn.currDate||item.disabled">{{item.date}}</span>
-          <!-- <span v-if="item.date>=firstMothn.currDate&&!item.disabled" @click="setData(firstMothn.currYear,(firstMothn.currMoth+1),item.date)">￥{{item.price}}</span> -->
+         <span v-if="item.date>=firstMothn.currDate&&!item.disabled" @click="setData(firstMothn.currYear,(firstMothn.currMoth+1),item.date)" style="font-size:20rpx" :style="{color:firstMothn.currYear+'-'+(firstMothn.currMoth+1)+'-'+item.date==selectedDate&&!item.disabled?'#333':'#fff'}">￥{{item.price}}</span>
         </td>    
       </tr>
     </table>
      <p class="title">{{secondMothn.currYear}}年{{secondMothn.currMoth+1}}月</p>
     <table>
-      <tr><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
+      <tr  style="padding:20rpx 0;background:#ccc"><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
       <tr v-for="(data,index) in secondMothn.currData " :key="index">
         <td v-for="(item,index1) in data" :key="index1">  
             <span v-if="item.date" @click="setData(secondMothn.currYear,(secondMothn.currMoth+1),item.date)" style="display:inline-block;width:100%;height:80rpx;line-height:80rpx;text-align:center">{{item.date}}</span>
              <span v-if="!item.date" >{{item.date}}</span>
-           <!--  <span v-if="item.date" @click="setData(secondMothn.currYear,(secondMothn.currMoth+1),item.date)">￥{{item.price}}</span> -->
+             <span v-if="item.date" @click="setData(secondMothn.currYear,(secondMothn.currMoth+1),item.date)" style="color:#333;font-size:20rpx">￥{{item.price}}</span>
           </td>
       </tr>
     </table>
     <p class="title">{{thirdMothn.currYear}}年{{thirdMothn.currMoth+1}}月</p>
     <table>
-      <tr><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
+      <tr  style="padding:20rpx 0;background:#ccc"><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr>
       <tr v-for="(data,index) in thirdMothn.currData " :key="index">
         <td v-for="(item,index1) in data" :key="index1">
           <span v-if="item.date" @click="setData(thirdMothn.currYear,(thirdMothn.currMoth+1),item.date)" style="display:inline-block;width:100%;height:80rpx;line-height:80rpx;text-align:center">{{item.date}}</span>
             <span v-if="!item.date" >{{item.date}}</span>
-           <!-- <span v-if="item.date" @click="setData(thirdMothn.currYear,(thirdMothn.currMoth+1),item.date)">￥{{item.price}}</span> -->
+           <span v-if="item.date" @click="setData(thirdMothn.currYear,(thirdMothn.currMoth+1),item.date)" style="color:#333;font-size:20rpx">￥{{item.price}}</span>
            </td>
       </tr>
     </table>

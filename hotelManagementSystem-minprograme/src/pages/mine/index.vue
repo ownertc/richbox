@@ -16,6 +16,7 @@
    <ul class="list">
      <li><a href="/pages/discount/main"><span>抵用券</span><span>{{totalVols}}张</span></a></li>
      <li><a href="/pages/commonInfo/main"><span>常用信息</span><i class="fa fa-angle-right" style="line-height:80rpx;font-size:40rpx;color:#999"></i></a></li>
+     <li><a href="/pages/invoice/main"><span>我的发票</span><i class="fa fa-angle-right" style="line-height:80rpx;font-size:40rpx;color:#999"></i></a></li>
    </ul>
   </div>
 </template>

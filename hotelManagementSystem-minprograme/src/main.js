@@ -31,8 +31,12 @@ export default {
       'pages/commonInfo/main',
       'pages/addCommonUser/main',
       'pages/settings/main',
-      'pages/orderDiscount/main'
-
+      'pages/orderDiscount/main',
+      'pages/invoice/main',
+      'pages/invoiceDetail/main',
+      'pages/applyInvoice/main',
+      'pages/addMailAddress/main',
+      'pages/addInvoiceHeader/main'
     ],
     window: {
       backgroundTextStyle: 'light',

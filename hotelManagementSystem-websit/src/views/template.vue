@@ -5,7 +5,7 @@
             <headrbar></headrbar>
         </Header>
         <Content>
-aqDSFDYTRY
+
         </Content>
         <Footer><footerbar></footerbar></Footer>
     </Layout>

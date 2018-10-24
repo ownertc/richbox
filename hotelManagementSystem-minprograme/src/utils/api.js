@@ -197,3 +197,32 @@ export function cancelOrder (id) {
 export function getRoomCalendarList (params) {
   return request.get(`/WxHotel/GetRoomCalendarList`, params)
 }
+
+/**
+ * 小程序获取开票列表
+ * 接口地址:/GwInvoicing/GetList
+ */
+export function getInvoiceList (params) {
+  return request.get(`/GwInvoicing/GetList`, params)
+}
+/**
+ * 小程序获取发票详情
+ * 接口地址:/GwInvoicing/Get/{id}
+ */
+export function getInvoiceDetail (id) {
+  return request.get(`/GwInvoicing/Get/${id}`)
+}
+/**
+ * 小程序添加发票抬头
+ * 接口地址:/GwInvoice/Post
+ */
+export function pushInvoiceHeader (params) {
+  return request.post(`/GwInvoice/Post`, params)
+}
+/**
+ * 小程序获取发票抬头列表
+ * 接口地址:/GwInvoice/GetList
+ */
+export function invoiceHeaderList (params) {
+  return request.get(`/GwInvoice/GetList`, params)
+}

@@ -1,5 +1,5 @@
 <template>
-<Layout>
+<Layout style="width:100vw;overflow:hidden;">
         <Header  class="headerbar">
             <headrbar></headrbar>
         </Header>
@@ -351,6 +351,7 @@ export default {
 }
 </script>
 <style>
+
 .date-item .ivu-form-item-label {
   font-size: 14px;
 }
@@ -373,6 +374,9 @@ export default {
   bottom: 0;
   min-height: 100vh;
   width: 100vw;
+}
+.detailhotel.ivu-tabs{
+overflow: visible;
 }
 </style>
 

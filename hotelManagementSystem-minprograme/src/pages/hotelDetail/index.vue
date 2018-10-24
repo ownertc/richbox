@@ -24,7 +24,6 @@
       <p class="title" @click="navigation"><span>地图周边</span><i class="fa fa-angle-right" style="color:#999;font-size:16px;"></i></p>
       <div class="address"><i class="fa fa-map-marker" style="margin-right:5px;font-size:36rpx"></i><span>{{detailInfo.Hotel.AddressSSQ}}</span></div>
    </div>
-   
    <div class="date-picker">
      <a :href="'/pages/datePicker/main?hotelId='+detailInfo.Hotel.Id+'&dateType=1'">
       <div class="date">
@@ -44,7 +43,7 @@
         </div>
        </a>
    </div>
-   
+  <HotelDatePicker></HotelDatePicker>
 
    <ul class="hotel-list">
      <li class="hotel" v-for="(item,index) in detailInfo.GuestRoomType" :key="index">
@@ -107,7 +106,6 @@
       <p class="close"><i class="fa fa-close" @click="noticeDetail=false"></i></p>
   </div>
   </div>
-
 
   <!--房间详情开始-->
 <div class="detail" :class="{show:zoomDetail}">
@@ -180,7 +178,6 @@ export default {
       }
     }
   },
-
   computed: {
     totalNights () {
       let ruzhuDate = this.ruzhuDate.replace(/-/g, '/')
