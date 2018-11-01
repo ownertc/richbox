@@ -58,7 +58,7 @@ export default {
       }
     }
   },
-  onShow () {
+  onLoad () {
     let data = this.$root.$mp.query.AblumsTypes
     let data1 = this.$root.$mp.query.Ablums
     this.AblumsTypes = JSON.parse(data)

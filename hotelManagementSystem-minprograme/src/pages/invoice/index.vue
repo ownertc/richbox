@@ -5,7 +5,7 @@
               <li class="item" @click="goDetail(item.Id)" v-for="(item,index) in list" :key="index">
                     <p><span>发票抬头：</span><span>{{item.InvoiceName}}</span></p>
                     <p><span>发票金额：</span><span>￥{{item.TotalPrice}}</span></p>
-                    <p><span>发票状态：</span><span>{{item.InvoiceStatus}}</span></p>
+                    <p><span>发票状态：</span><span>{{item.InvoicingStatus_Name}}</span></p>
                     <p><span>申请时间：</span><span>{{item.CreatorTime}}</span></p>
               </li>
          </ul>
@@ -14,7 +14,7 @@
 
 <script>
 import {getInvoiceList} from '@/utils/api'
-import {paramsTime} from '@/utils/index'
+
 export default {
   data () {
     return {
@@ -38,7 +38,7 @@ export default {
             this.queryParams.pageIndex += 1
             this.maxPage = Math.ceil(res.Data.Count / this.queryParams.pageSize)
             res.Data.List.forEach(item => {
-              item.CreatorTime = paramsTime(new Date(item.CreatorTime))
+              item.CreatorTime = item.CreatorTime.split('T').join(' ').split('.')[0]
             })
             this.list = this.list.concat(res.Data.List)
           }
@@ -52,7 +52,9 @@ export default {
   onReachBottom: function () {
     this.loadData()
   },
-  onShow () {
+  onLoad () {
+    this.queryParams.pageIndex = 1
+    this.list = []
     this.loadData()
   }
 }

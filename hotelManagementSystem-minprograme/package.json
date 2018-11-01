@@ -16,7 +16,9 @@
     "font-awesome": "^4.7.0",
     "md5": "^2.2.1",
     "mpvue": "^1.0.11",
+    "mpvue-picker": "^2.0.3",
     "qrcode": "^1.2.2",
+    "v-distpicker": "^1.0.20",
     "vue-calendar-range-mobile": "^1.0.0",
     "vue-hotel-datepicker": "^2.5.0",
     "vuex": "^3.0.1"

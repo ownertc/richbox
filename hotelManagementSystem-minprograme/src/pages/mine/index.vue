@@ -50,11 +50,14 @@ export default {
   methods: {
     getBasiInfo () {
       getUserInfo().then(res => {
+        wx.hideNavigationBarLoading()
         this.userInfo = res.Data
+        wx.setStorageSync('userInfo', this.userInfo)
       })
     },
     getVoList () {
       getVouchList(this.vonQueryparms).then((res) => {
+        wx.hideNavigationBarLoading()
         let discount = 0
         res.Data.forEach(item => {
           if (item.Status === 0 && !item.IsUse) {
@@ -68,7 +71,13 @@ export default {
   components: {
     card: card
   },
-  onShow () {
+  onPullDownRefresh () {
+    wx.showNavigationBarLoading()
+    this.getBasiInfo()
+    this.getVoList()
+  },
+  onLoad () {
+    this.userInfo = wx.getStorageInfoSync('userInfo')
     this.getBasiInfo()
     this.getVoList()
   }

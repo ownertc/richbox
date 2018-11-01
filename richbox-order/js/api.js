@@ -49,3 +49,13 @@ function addressList(params){
         params
     })
 }
+/**
+ * 根本经纬度获取所有的项目
+ */
+function ByMapCoordinate(params){
+    return request()({
+        url:"/BusinessCircle/ByMapCoordinate",
+        method:"get",
+        params
+    })
+}

@@ -31,7 +31,7 @@ export default {
       })
     }
   },
-  onShow () {
+  onLoad () {
     this.list = JSON.parse(this.$root.$mp.query.orderDiscount)
   }
 }

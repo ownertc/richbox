@@ -2,7 +2,7 @@ import Fly from 'flyio/dist/npm/wx'
 import {login} from '@/utils/api'
 const request = new Fly()
 request.config.timeout = 10 * 1000
-request.config.baseURL = 'https://testapi.detuhotel.cn/api/'
+request.config.baseURL = 'https://api.detuhotel.cn/api/'
 request.interceptors.request.use((request) => {
   wx.showLoading({ title: '拼命加载中...' })
   request.headers['usertoken'] = wx.getStorageSync('token')

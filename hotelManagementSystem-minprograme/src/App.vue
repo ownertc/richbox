@@ -1,10 +1,8 @@
 <script>
   import {login} from '@/utils/api'
 export default {
-    created () {
-      login()
-    },
     onLaunch: function () {
+      login()
     }
 
 }

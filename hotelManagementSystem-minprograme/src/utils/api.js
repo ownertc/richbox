@@ -1,5 +1,11 @@
 import request from '@/utils/request'
-
+/**
+ *省市区树状图
+ 接口地址 /AdminArea/Get
+*/
+export function areaList () {
+  return request.get(`/AdminArea/Get`)
+}
 /**
  *
  * 用户登陆：
@@ -206,6 +212,13 @@ export function getInvoiceList (params) {
   return request.get(`/GwInvoicing/GetList`, params)
 }
 /**
+ * 小程序获取开票列表
+ * 接口地址:/GwInvoicing/GetList
+ */
+export function invoiceAdd (params) {
+  return request.post(`/GwInvoicing/Post`, params)
+}
+/**
  * 小程序获取发票详情
  * 接口地址:/GwInvoicing/Get/{id}
  */
@@ -225,4 +238,83 @@ export function pushInvoiceHeader (params) {
  */
 export function invoiceHeaderList (params) {
   return request.get(`/GwInvoice/GetList`, params)
+}
+/**
+ * 小程序获取发票抬头详情
+ * 接口地址:/GwInvoice/Get/{id}
+ */
+export function invoiceHeaderDetail (id) {
+  return request.get(`/GwInvoice/Get/${id}`)
+}
+/**
+ * 小程序删除发票抬头
+ * 接口地址:/GwInvoice/Delete/{id}
+ */
+export function invoiceHeaderDelete (id) {
+  return request.delete(`/GwInvoice/Delete/${id}`)
+}
+/**
+ * 小程序编辑发票抬头
+ * 接口地址:/GwInvoice/Put/{id}
+ */
+export function invoiceHeaderEdite (id, params) {
+  return request.put(`/GwInvoice/Put/${id}`, params)
+}
+/**
+ * 小程序获取发票抬头下拉
+ * 接口地址:/GwInvoice/GetListByCheck
+
+ */
+export function invoiceHeaderCheck (params) {
+  return request.get(`/GwInvoice/GetListByCheck`, params)
+}
+/**
+ * 小程序获取邮寄地址列表
+ * 接口地址:/GwInvoice/GetList
+ */
+export function mailAddressList (params) {
+  return request.get(`/GwReceive/GetList`, params)
+}
+/**
+ * 小程序删除邮寄地址
+ * 接口地址:/GwReceive/Delete/{id}
+ */
+export function mailAddressDelete (id) {
+  return request.delete(`/GwReceive/Delete/${id}`)
+}
+/**
+ * 小程序添加邮寄地址
+ * 接口地址:/GwReceive/Post
+ */
+export function mailAddressAdd (params) {
+  return request.post(`/GwReceive/Post`, params)
+}
+/**
+ * 小程序编辑邮寄地址
+ * 接口地址:/GwReceive/Put/{id}
+ */
+export function mailAddressEdite (id, params) {
+  return request.put(`/GwReceive/Put/${id}`, params)
+}
+/**
+ * 小程序获取邮寄地址详情
+ * 接口地址:/GwReceive/Get/{id}
+ */
+export function mailAddressDetail (id) {
+  return request.get(`/GwReceive/Get/${id}`)
+}
+/**
+ * 小程序获取邮寄地址下拉
+ * 接口地址:/GwReceive/GetListByCheck
+ */
+export function mailAddressCheck () {
+  return request.get(`/GwReceive/GetListByCheck`)
+}
+
+/**
+ * 小程序获取邮寄地址详情
+ * 接口地址:/GwOrder/GetNoInvoicingOrder
+ */
+export function noInvoicingOrder (params) {
+  return request.get(`/GwOrder/GetNoInvoicingOrder`, params)
 }

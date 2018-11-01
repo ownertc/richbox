@@ -7,15 +7,20 @@
 		<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/rest.css">
-		<link rel="stylesheet" href="css/animate.css">
 		<link rel="stylesheet" href="css/goods.css">
 	</head>
 <style type="text/css">
 </style>
 <body>
 <div id="app" >
+<div class="headerbar" style="text-align: right">
+	<div  @click="projectShow=!projectShow" ><span v-text="project.Name"></span ><i class="fa fa-sort-down" style="margin-left:10px;margin-right:40px"></i></div>
+		<ul   :class="{slideInDown:projectShow}" class="projectWrap animated fast" v-show="projectShow">
+			<li v-for="(item,index) in projectList" @click="projectSelect(item)" v-text="item.Name" style="text-align: center"></li>
+		</ul>
+</div>
 <div id="wrap" :class="{maxheight:detailShow}">
-<div class="header"></div>
+<div class="header" style="margin-top: 40px"></div>
 <ul
   v-infinite-scroll="loadMore"
   infinite-scroll-disabled="loading"
@@ -26,7 +31,8 @@
          <p class="title" v-text="item.Name"></p>
 		   <div class="other">
 			   <p class="price"><span>￥</span><span v-text="item.Price"></span></p>
-			   <div class="cartcrtol"><i class="fa fa-minus-circle minus animated" v-show="item.num" :class="{rotateInDownRight:item.num,rotateOutUpRight:!item.num}" @click="decreas(index)"></i><span v-show="item.num" v-text="item.num"></span><i class="fa fa-plus-circle plus" @click="addCart(index)" v-if="item.IsReserve"></i><i class="fa fa-plus-circle plus disable"  v-if="!item.IsReserve"></i></div>
+			   <div class="cartcrtol" v-if="!item.Specs.length"><i class="fa fa-minus-circle minus animated fast" v-show="item.num" :class="{rotateInDownRight:item.num,rotateOutUpRight:!item.num}" @click="decreas(index)"></i><span v-show="item.num" v-text="item.num"></span><i class="fa fa-plus-circle plus" @click="addCart(index)" v-if="item.IsReserve"></i><i class="fa fa-plus-circle plus disable"  v-if="!item.IsReserve"></i></div>
+			   <div class="cartcrtol" v-if="item.Specs.length"><span class="selectSpec" :class="{disableSpec:!item.IsReserve}" @click="selectSpec(item)">选规格</span></div>
 		   </div>
 	  </div>
 </li>
@@ -34,9 +40,12 @@
 </ul>
 </div>
 <!-- 商品详情开始 -->
-<div class="goods-detail animated"  :class="{slideInUp:detailShow,slideOutDown:!detailShow}">
+<div class="goods-detail animated fast"  :class="{slideInUp:detailShow,slideOutDown:!detailShow}" v-show="detailShow">
 	<i class="fa fa-angle-down" style="position: absolute;right:20px;top:5px;font-size: 20px;color:#666" @click="detailShow=false"></i>
-	<img :src="detailInfo.ThumUrl" alt="">
+	<div class="img">
+		<div :style="{backgroundImage:'url(' + detailInfo.ThumUrl + ')'}" class="bg" >	</div>
+		<img :src="detailInfo.ThumUrl" alt="" style="width:50vw;height: 40vw;margin-left:20vw;">
+	</div>
 	<div class="desc">
 		<p class="goodsname" v-text="detailInfo.Name"></p>
 		<p class="price"><span>￥</span><span v-text="detailInfo.Price"></span></p>
@@ -45,18 +54,52 @@
 		</p>
 	</div>
 </div>
-<div class='mask' v-if="detailShow"></div>
-<div class="footerBar">
-	<div class="cart animated " :class="{bounceIn:bounceIn}">
-		<div class="cart-wrap">
-	     <mt-badge size="small" color="#d58f51" style="position: absolute;top:0;right:0;height:10px;display: inline-block;line-height: 1" v-if="totalCount" v-text="totalCount"></mt-badge>
-			<i class="fa fa-shopping-cart shopp" style="color:#d58f51;font-size: 22px;background: #2b343b;padding: 10px;border-radius: 50%" :class="{disable:totalPrice<=0}"></i>
-		</div>
-	</div>
-	<div class="total" :class="{disable:totalPrice<=0}">￥{{totalPrice}}</div>
-	<div class="goOrder" :class="{disabled:totalPrice<=0}" @click="confirmOrder()">去结算</div>
-</div>
+
 <!-- 商品详情结束 -->
+
+<!-- 选规格开始 -->
+<div class="goods-detail animated fast"  :class="{slideInUp:sepShow,slideOutDown:!sepShow}" style="top:0;bottom:96px" v-show="sepShow">
+	<i class="fa fa-angle-down" style="position: absolute;right:20px;top:5px;font-size: 20px;color:#666" @click="sepShow=false"></i>
+	<div class="img">
+			<div :style="{backgroundImage:'url(' + detailInfo.ThumUrl + ')'}" class="bg" >	</div>
+			<img :src="detailInfo.ThumUrl" alt="" style="width:50vw;height: 40vw;margin-left:20vw;">
+	</div>
+	<div class="desc">
+		<p class="goodsname" v-text="detailInfo.Name"></p>
+		<div class="descspec">
+			<p class="price"><span>￥</span><span v-text="detailInfo.Price"></span></p>
+			<div class="cartcrtol" ><i class="fa fa-plus-circle plus" @click="addCart(-1)" v-if="detailInfo.IsReserve"></i><i class="fa fa-plus-circle plus disable"  v-if="!detailInfo.IsReserve"></i></div>
+		</div>
+		<div v-for="(item,index) in detailInfo.Specs">
+				<P class="title" v-text="item.Name"></P>
+				<ul  class="secList">
+					<li  v-for="(item1,index1) in item.Details" :class="{actived:item.specIndex===index1}"  @click="selectSpecItem(index,index1)" v-text="item1.Name"></li>
+				</ul>
+			</div>
+	</div>
+</div>
+<!-- 选规格结束 -->
+<div class="footerBar">
+		<ul class="carFoods animated fast" v-show="carFoodsShow&&cartFoods.length" :class="{slideInUp:carFoodsShow&&cartFoods.length,slideOutDown:!carFoodsShow}">
+			<li style="margin: 20px 10px;color:#999;font-size: 14px;">已点商品如下：</li>
+			<li v-for="(item,index)  in cartFoods" class="foodItem">
+				<div>
+					<P class="nameFood" v-text="item.Name"></P>
+					<P class="desc" style="color:#999;font-size:12px" v-text="item.SpecDetailDesc"></P>
+				</div>
+				<div class="cartcrtol" ><i class="fa fa-minus-circle minus animated fast" v-show="item.num" :class="{rotateInDownRight:item.num,rotateOutUpRight:!item.num}" @click="decreas(index,1)"></i><span v-show="item.num" v-text="item.num"></span><i class="fa fa-plus-circle plus" @click="addCart(index,1)" v-if="item.IsReserve"></i><i class="fa fa-plus-circle plus disable"  v-if="!item.IsReserve"></i></div>
+			</li>
+		</ul>
+		<div class="cart animated fast" :class="{bounceIn:bounceIn}">
+			<div class="cart-wrap">
+			 <mt-badge size="small" color="#d58f51" style="position: absolute;top:0;right:0;height:10px;display: inline-block;line-height: 1" v-if="totalCount" v-text="totalCount"></mt-badge>
+				<i class="fa fa-shopping-cart shopp" style="color:#d58f51;font-size: 22px;background: #2b343b;padding: 10px;border-radius: 50%" :class="{disable:totalPrice<=0}" @click="carFoodsShow=!carFoodsShow"></i>
+			</div>
+		</div>
+		<div class="total" :class="{disable:totalPrice<=0}" >￥{{totalPrice}}</div>
+		<div class="goOrder" :class="{disabled:totalPrice<=0}" @click="confirmOrder()">去结算</div>
+	</div>
+<div class='mask' v-if="detailShow||sepShow||projectShow||(carFoodsShow&&cartFoods.length)"></div>
 </div>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>

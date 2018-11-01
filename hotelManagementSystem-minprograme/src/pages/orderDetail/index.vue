@@ -32,7 +32,7 @@ export default {
   },
   methods: {
   },
-  onShow () {
+  onLoad () {
     this.detail = JSON.parse(this.$root.$mp.query.orderDetail)
   }
 }

@@ -52,7 +52,7 @@ export default {
       })
     }
   },
-  onShow () {
+  onLoad () {
     this.zoomTypeDetail = JSON.parse(this.$root.$mp.query.zoomTypeDetail)
   }
 

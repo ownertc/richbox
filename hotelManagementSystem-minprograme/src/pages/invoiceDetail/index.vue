@@ -11,22 +11,22 @@
            <li><span>开户银行账号：</span><span>{{invoiceDetail.BankAccount}}</span></li>
            <li><span>开票金额：</span><span>￥{{invoiceDetail.TotalPrice}}</span></li>
        </ul>
-       <P class="title">开票信息</P>
+       <P class="title">邮寄信息</P>
         <ul class="list">
-           <li><span>收件人：</span><span>{{invoiceDetail.ReceiverName}}</span></li>
+           <li><span>收件人：</span><span>{{invoiceDetail.ReceiverName}} {{invoiceDetail.ReceiverPhoneNumber}}</span></li>
            <li><span>邮寄地址：</span><span>{{invoiceDetail.AddressInfo}}</span></li>
            <li><span>邮政编码：</span><span>{{invoiceDetail.PostalCode}}</span></li>
        </ul>
       <P class="title">发票信息</P>
       <ul class="list">
-           <li><span>发票状态：</span><span>{{invoiceDetail.InvoiceStatus}}</span></li>
-           <li><span>申请时间：</span><span>{{invoiceDetail.InvoiceTime}}</span></li>
-           <li><span>开票时间：</span><span>{{invoiceDetail.InvoiceTime}}</span></li>
+           <li><span>发票状态：</span><span>{{invoiceDetail.InvoicingStatus_Name}}</span></li>
+           <li v-if="invoiceDetail.InvoicingStatus=='ISAYKP0001'"><span>申请时间：</span><span>{{invoiceDetail.InvoicingTime}}</span></li>
+           <li v-if="invoiceDetail.InvoicingStatus=='ISAYKP0001'"><span>开票时间：</span><span>{{invoiceDetail.InvoicingTime}}</span></li>
        </ul>
        <P class="title">开票相关酒店</P>
        <ul class="list" v-for="(item,index) in invoiceDetail.Details" :key="index">
-           <li>上海瑞铂回家酒店 (2018-10-19 到 2018-10-23)</li>
-           <li>金额：￥{{item.OrderPrice}}</li>
+           <li>{{item.Remark}}</li>
+           <li>金额：￥{{item.TotalPrice}}</li>
        </ul>
   </div>
   </div>
@@ -48,12 +48,14 @@ export default {
       getInvoiceDetail(id).then(res => {
         if (res.Code === 200) {
           this.invoiceDetail = res.Data
-          this.invoiceDetail.InvoiceTime = paramsTime(new Date(this.invoiceDetail.InvoiceTime))
+          if (this.invoiceDetail.InvoicingTime) {
+            this.invoiceDetail.InvoicingTime = paramsTime(new Date(this.invoiceDetail.InvoicingTime))
+          }
         }
       })
     }
   },
-  onShow () {
+  onLoad () {
     this.loadData(this.$root.$mp.query.id)
   }
 }

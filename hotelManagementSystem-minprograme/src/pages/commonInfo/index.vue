@@ -8,38 +8,37 @@
     <ul class="common-use">
       <li v-for="(item,index) in formdateList" :key="index">
         <div class="left">
-          <p class="user"><span>{{item.Name}}</span><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i></p>
+          <p class="user"><span>{{item.Name}}</span></p>
           <p class="tel">手机号：{{item.Mobileform}}</p>
           <p class="idcard">{{item.CertificatesType}}：{{item.IdCardform}}</p>
         </div>
-        <div class="right"><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
+        <div class="right"><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
       </li>
       <p v-if="list.length==0" style="color:#666;font-size:28rpx;text-align:center;margin-top:40rpx;">还没有常用旅客信息，赶快去添加吧！</p>
     </ul>
     <a href="/pages/addCommonUser/main"><button class="add">增加</button></a>
     </div>
     <div class="common-use-wrap"  v-if="currIndex===1">
-    <ul class="common-use">
-      <li v-for="(item,index) in formdateList" :key="index">
-        <div class="left">
-          <p class="user"><span>{{item.Name}}</span><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i></p>
-          <p class="tel">手机号：{{item.Mobileform}}</p>
-          <p class="idcard">{{item.CertificatesType}}：{{item.IdCardform}}</p>
-        </div>
-        <div class="right"><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
-      </li>
-      <p v-if="list.length==0" style="color:#666;font-size:28rpx;text-align:center;margin-top:40rpx;">还没有常用旅客信息，赶快去添加吧！</p>
-    </ul>
-    <a href="/pages/addCommonUser/main"><button class="add">增加</button></a>
+      <ul class="common-use">
+        <li v-for="(item,index) in mailAddressList" :key="index" style="height:140rpx">
+          <div class="left">
+            <p class="user"><span>{{item.ReceiverName}} {{item.ReceiverPhoneNumber}}</span></p>
+            <p class="tel">{{item.AddressInfo}}</p>
+          </div>
+          <div class="right"><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
+        </li>
+        <p v-if="mailAddressList.length==0" style="color:#666;font-size:28rpx;text-align:center;margin-top:40rpx;">还没有邮寄地址，赶快去添加吧！</p>
+      </ul>
+      <a href="/pages/addMailAddress/main"><button class="add">增加</button></a>
     </div>
    <div class="common-use-wrap"  v-if="currIndex===2">
     <ul class="common-use">
-      <li v-for="(item,index) in invoiceHeaderList" :key="index">
+      <li v-for="(item,index) in invoiceHeaderList" :key="index" style="height:140rpx">
         <div class="left">
-          <p class="user"><span>{{item.InvoiceName}}</span><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i></p>
-          <p class="tel">纳税人识别号：{{item.IdentifyNumber}}</p>
+          <p class="user"><span>{{item.InvoiceName}}</span></p>
+          <p class="tel" v-if="item.IdentifyNumber">纳税人识别号：{{item.IdentifyNumber}}</p>
         </div>
-        <div class="right"><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
+        <div class="right"><i class="fa fa-pencil-square-o" @click="goEdit(item)"></i><i class="fa fa-trash-o" aria-hidden="true"  @click="deleteTravalUser(item.Id,index)"></i></div>
       </li>
       <p v-if="invoiceHeaderList.length==0" style="color:#666;font-size:28rpx;text-align:center;margin-top:40rpx;">还没有发票抬头，赶快去添加吧！</p>
     </ul>
@@ -48,7 +47,7 @@
   </div>
 </template>
 <script>
- import {getCommonInfoList, login, deleteTravalUsers, invoiceHeaderList} from '@/utils/api'
+ import {getCommonInfoList, deleteTravalUsers, invoiceHeaderList, mailAddressList, mailAddressDelete, invoiceHeaderDelete} from '@/utils/api'
 import * as fn from '@/utils/index'
 export default {
    data () {
@@ -57,14 +56,19 @@ export default {
        invoiceHeaderList: [],
        mailAddressList: [],
        maxPage: 1,
+       invoiceHeaderMaxPage: 1,
+       mailAddressMaxPage: 1,
        currIndex: 0,
        tabBar: ['常用旅客', '邮寄地址', '发票抬头'],
        invoiceHeaderParams: {
          pageIndex: 1,
          pageSize: 10
        },
-       invoiceHeaderMaxPage: 1,
        queryParms: {
+         pageIndex: 1,
+         pageSize: 10
+       },
+       mailAddressParams: {
          pageIndex: 1,
          pageSize: 10
        }
@@ -84,18 +88,12 @@ export default {
    methods: {
      getList () {
        if (this.queryParms.pageIndex <= this.maxPage) {
-         getCommonInfoList(this.queryParms, {usertoken: this.queryParms.usertoken}).then(res => {
-           if (res.Code === 401) {
-             login()
-             this.getList()
-           } else {
-             res.Data.forEach((item) => {
-               item.Validity = item.Validity ? item.Validity.split('T')[0] : item.Validity
-             })
-             this.list = this.list.concat(res.Data)
-             this.maxPage = Math.ceil(res.Data.Count / this.queryParms.pageSize)
-             this.queryParms.pageIndex++
-           }
+         getCommonInfoList(this.queryParms).then(res => {
+           res.Data.forEach((item) => {
+             item.Validity = item.Validity ? item.Validity.split('T')[0] : item.Validity
+           })
+           this.list = this.list.concat(res.Data)
+           this.queryParms.pageIndex++
          })
        }
      },
@@ -105,6 +103,15 @@ export default {
            this.invoiceHeaderList = this.invoiceHeaderList.concat(res.Data.List)
            this.invoiceHeaderMaxPage = Math.ceil(res.Data.Count / this.invoiceHeaderParams.pageSize)
            this.invoiceHeaderParams.pageIndex++
+         })
+       }
+     },
+     getMailAddressList () {
+       if (this.mailAddressParams.pageIndex <= this.mailAddressMaxPage) {
+         mailAddressList(this.mailAddressParams).then(res => {
+           this.mailAddressList = this.mailAddressList.concat(res.Data.List)
+           this.mailAddressMaxPage = Math.ceil(res.Data.Count / this.mailAddressParams.pageSize)
+           this.mailAddressParams.pageIndex++
          })
        }
      },
@@ -119,17 +126,43 @@ export default {
          confirmColor: '#ff2d50', // 确定按钮的文字颜色,
          success: res => {
            if (res.confirm) {
-             deleteTravalUsers(id).then(res => {
-               if (res.Code === 200) {
-                 this.list.splice(index, 1)
-                 wx.showToast({
-                   title: '删除成功', // 提示的内容,
-                   icon: 'none', // 图标,
-                   duration: 2000, // 延迟时间,
-                   mask: true // 显示透明蒙层，防止触摸穿透,
-                 })
-               }
-             })
+             if (this.currIndex === 0) {
+               deleteTravalUsers(id).then(res => {
+                 if (res.Code === 200) {
+                   this.list.splice(index, 1)
+                   wx.showToast({
+                     title: '删除成功', // 提示的内容,
+                     icon: 'none', // 图标,
+                     duration: 2000, // 延迟时间,
+                     mask: true // 显示透明蒙层，防止触摸穿透,
+                   })
+                 }
+               })
+             } else if (this.currIndex === 1) {
+               mailAddressDelete(id).then(res => {
+                 if (res.Code === 200) {
+                   this.mailAddressList.splice(index, 1)
+                   wx.showToast({
+                     title: '删除成功', // 提示的内容,
+                     icon: 'none', // 图标,
+                     duration: 2000, // 延迟时间,
+                     mask: true // 显示透明蒙层，防止触摸穿透,
+                   })
+                 }
+               })
+             } else if (this.currIndex === 2) {
+               invoiceHeaderDelete(id).then(res => {
+                 if (res.Code === 200) {
+                   this.invoiceHeaderList.splice(index, 1)
+                   wx.showToast({
+                     title: '删除成功', // 提示的内容,
+                     icon: 'none', // 图标,
+                     duration: 2000, // 延迟时间,
+                     mask: true // 显示透明蒙层，防止触摸穿透,
+                   })
+                 }
+               })
+             }
            }
          }
        })
@@ -138,9 +171,12 @@ export default {
        if (this.currIndex === 0) {
          let travalUser = JSON.stringify(data)
          wx.navigateTo({ url: `../../pages/addCommonUser/main?travalUser=${travalUser}` })
+       } else if (this.currIndex === 1) {
+         let id = data.Id
+         wx.navigateTo({ url: `../../pages/addMailAddress/main?id=${id}` })
        } else if (this.currIndex === 2) {
-         let travalUser = JSON.stringify(data)
-         wx.navigateTo({ url: `../../pages/addCommonUser/main?travalUser=${travalUser}` })
+         let id = data.Id
+         wx.navigateTo({ url: `../../pages/addInvoiceHeader/main?id=${id}` })
        }
      }
    },
@@ -150,13 +186,22 @@ export default {
    onReachBottom: function () {
      if (this.currIndex === 0) {
        this.getList()
+     } else if (this.currIndex === 1) {
+       this.getMailAddressList()
      } else if (this.currIndex === 2) {
        this.getInvoiceHeaderList()
      }
    },
-   onShow () {
+   onLoad () {
+     this.queryParms.pageIndex = 1
+     this.invoiceHeaderParams.pageIndex = 1
+     this.mailAddressParams.pageIndex = 1
+     this.list = []
+     this.invoiceHeaderList = []
+     this.mailAddressList = []
      this.getList()
      this.getInvoiceHeaderList()
+     this.getMailAddressList()
    }
 }
 </script>

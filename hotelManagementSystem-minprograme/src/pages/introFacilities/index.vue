@@ -45,7 +45,7 @@ export default {
   },
   methods: {
   },
-  onShow () {
+  onLoad () {
     this.configTree = JSON.parse(this.$root.$mp.query.configTree)
     this.tel = this.$root.$mp.query.tel
     this.intro = this.$root.$mp.query.intro

@@ -6,6 +6,8 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: ' '
+    navigationBarTitleText: ' ',
+    enablePullDownRefresh: true,
+    backgroundColor: '#ccc'
   }
 }

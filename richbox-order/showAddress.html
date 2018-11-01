@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <title>收货地址</title>
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/rest.css">
+    <link rel="stylesheet" href="css/address.css">
+</head>
+<body>
+<div id="app">
+    <ul class="address-list">
+        <li class="item" v-for="(item,index) in list" :key="index" @click="goConfirmOrder(item)">
+            <P><span style="margin-right: 10Px" v-text="item.ProjectName"></span><span v-text="item.ProjectAddress"></span><span v-text="item.RoomNumber"></span></P>
+            <p class="user"><span style="margin-right: 10px" v-text="item.UserName"></span><span v-text="item.UserPhone"></span></p>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/request.js"></script>
+<script src="js/api.js"></script>
+<script src="js/initBrage.js?vesrsion=1.6"></script>
+<script src="js/showAddress.js?version=1.9"></script>
+</html>

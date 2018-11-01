@@ -1,3 +1,6 @@
+*{
+    font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Source Han Sans CN Normal", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
 img[lazy=loading] {
     width: 40px;
     height: 300px;
@@ -21,3 +24,4 @@ img[lazy=loading] {
     color:#d58f51;
     font-weight: 500;
 }
+

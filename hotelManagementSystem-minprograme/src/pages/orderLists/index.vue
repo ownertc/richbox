@@ -185,7 +185,7 @@ export default {
       })
     }
   },
-  onShow () {
+  onLoad () {
     this.currIndex = this.$root.$mp.query.currIndex ? this.$root.$mp.query.currIndex : 0
     this.queryParams.status = this.headerBars[this.currIndex].status
     this.maxPage = 1

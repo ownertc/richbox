@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="section">
   <picker mode="date" :value="startDate" :start="startDate" :end="endDate" @change="bindDateStartChange($event)">
@@ -14,10 +15,13 @@
   </picker>
 <img :src="navall" style="width:40rpx;height:40rpx" @click="citySelect=true"/>
 </div>
+
     <!-- 列表开始 -->
     <ul class="list-warp" style="margin:110rpx 0">
       <li v-for="(item,index) in list" :key="index" class="item" @click="goDetail(item.Id)">
-    <img :src="item.PicPath" class="imgWrap"/>
+        <div :style="{backgroundImage:'url(' +layzImg + ')',backgroundPosition:'center' }"  class="imgWrap">
+          <img :src="item.PicPath" class="imgWrap"/>
+         </div>
         <div class="right">
           <p class="title">{{item.Name}}</p>
           <p class="address">{{item.AddressInfo}}</p>
@@ -44,23 +48,28 @@
       </div>
       </div>
       </div>
-        <div style="background:rgba(0,0,0,.3);z-index:99;position:fixed;top:0;left:0;bottom:0;height:100%;z-index:999;width:100vw"  v-if="citySelect"></div>
+      <div style="background:rgba(0,0,0,.3);z-index:99;position:fixed;top:0;left:0;bottom:0;height:100%;z-index:999;width:100vw"  v-if="citySelect"></div>
   </div>
+
 </template>
 
 <script>
 // imgaes
 import navall from '@/asset/images/navall.png'
-// components
-import card from '@/components/card'
+// imgaes
+import layzImg from '@/asset/images/layzImg.png'
+
 // api
 import {queryHotelList, getCitylist} from '@/utils/api'
-
 export default {
   data () {
     return {
       navall,
+      layzImg,
       currCityIndex: 0,
+      note: {
+        backgroundImage: 'url(' + layzImg + ')'
+      },
       citySelect: true,
       startDate: new Date(),
       citylist: [],
@@ -77,10 +86,9 @@ export default {
       list: [ ]
     }
   },
-  components: {
-    card: card
-  },
+
   methods: {
+
     goDetail (id) {
       wx.navigateTo({ url: `../../pages/hotelDetail/main?hotelId=${id}&dateBegin=${this.queryParams.dateBegin}&dateEnd=${this.queryParams.dateEnd}` })
     },
@@ -114,23 +122,27 @@ export default {
       if (this.queryParams.pageIndex <= this.maxPage) {
         queryHotelList(this.queryParams).then(res => {
           if (res.Code === 200) {
+            this.list = this.queryParams.pageIndex === 1 ? [] : this.list
             this.list = this.list.concat(res.Data.List)
-            this.maxPage = Math.floor(res.Data.Count / this.queryParams.pageSize)
+            this.maxPage = Math.ceil(res.Data.Count / this.queryParams.pageSize)
+            wx.setStorageSync('list', this.list)
             this.queryParams.pageIndex++
           }
         })
       }
     },
     confirm () {
-      this.queryParams.areaId = this.citylist[this.currCityIndex].Key
-      this.list = []
-      this.maxPage = 1
-      this.queryParams.pageIndex = 1
-      this.queryParams.pageSize = 10
       this.citySelect = false
-      wx.setStorageSync('currIndex', this.currCityIndex)
-      wx.setStorageSync('currKey', this.citylist[this.currCityIndex].Key)
-      this.queryList()
+      this.queryParams.areaId = this.citylist[this.currCityIndex].Key
+      if (this.citylist[this.currCityIndex].Key !== wx.getStorageSync('currKey')) {
+        this.maxPage = 1
+        this.queryParams.pageIndex = 1
+        this.queryParams.pageSize = 10
+        this.list = []
+        wx.setStorageSync('currIndex', this.currCityIndex)
+        wx.setStorageSync('currKey', this.citylist[this.currCityIndex].Key)
+        this.queryList()
+      }
     },
     getCitys () {
       getCitylist().then(res => {
@@ -140,11 +152,9 @@ export default {
       })
     },
     initData () {
-      this.list = []
+      this.list = wx.getStorageSync('list')
+      this.citylist = wx.getStorageSync('citys')
       this.totalNight = 1
-      this.maxPage = 1
-      this.queryParams.pageIndex = 1
-      this.queryParams.pageSize = 10
       this.startDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
       let timestamp = new Date().getTime() + 3 * 30 * 24 * 60 * 60 * 1000
       this.endDate = this.timestampToTime(timestamp)
@@ -176,14 +186,25 @@ export default {
       }
     }
   },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+  onPullDownRefresh () {
+    wx.showNavigationBarLoading()// 在标题栏中显示加载
+    this.maxPage = 1
+    this.queryParams.pageIndex = 1
+    queryHotelList(this.queryParams).then(res => {
+      if (res.Code === 200) {
+        this.list = []
+        this.list = res.Data.List
+        this.maxPage = Math.ceil(res.Data.Count / this.queryParams.pageSize)
+        this.queryParams.pageIndex++
+        wx.setStorageSync('list', this.list)
+        wx.hideNavigationBarLoading()
+      }
+    })
+  },
+  onReachBottom () {
     this.queryList()
   },
-
-  onShow () {
+  onLoad () {
     this.getStorageCitys()
     this.initData()
     this.queryList()

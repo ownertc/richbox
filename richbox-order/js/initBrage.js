@@ -26,7 +26,7 @@ function initJsBridge(readyCallback) {
             return;
         }
         if (isiOS) {
-            document.getElementsByClassName('footerBar')[0].style.bottom="0px"
+            document.getElementsByClassName('footerBar')[0].style.bottom="60px"
             if (window.WebViewJavascriptBridge) {
                 return callback(WebViewJavascriptBridge);
             }
@@ -54,14 +54,15 @@ function initJsBridge(readyCallback) {
          
         // 只有在这里注册过的方法，在原声代码里才能用callHandler的方式调用
         bridge.registerHandler('callHtmlUserInfo', function (data, responseCallback) {
-           
-            var userInfo =JSON.stringify(data)
-           window.localStorage.setItem('userInfo',userInfo)
+            var   userInfo = data
+            if(isiOS){
+                  userInfo =JSON.stringify(data)
+            }
+            window.localStorage.setItem('userInfo',userInfo)
         });
         bridge.registerHandler('jsbridge_getJsMessage', function (data, responseCallback) {
              responseCallback('native 传过来的是：' + data);
          });
-
          readyCallback();
      });
  }

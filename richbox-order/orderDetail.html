@@ -21,7 +21,7 @@
         <P style="font-size:14px;color:#000;padding:10px;border-bottom: 1px solid #eee">商品明细</P>
          <ul class="order-list">
              <li class="item" v-for="(item,index) in orderDetail.GoodsList" :key="index">
-                 <div style="width:60%;height: 100%;;display: table;"><P class="order-desc" style="display: table-cell;vertical-align: middle" v-text="item.GoodsName"></p></div>
+                 <div style="width:60%;height: 100%;;display: table;"><P class="order-desc" style="display: table-cell;vertical-align: middle" v-text=""><span v-text="item.GoodsName"></span><span></span><span style="margin-left:5px;" v-text="item.SpecRemark"></span></p></div>
                  <p class="num" style="font-size:14px;color:#333" v-text="item.FoodCount"></p>
                  <p class="price"><span>￥</span><span v-text="(item.Price*item.FoodCount).toFixed(2)"></span></p>
              </li>

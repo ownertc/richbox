@@ -134,7 +134,7 @@ export default {
     }
 
   },
-  onShow () {
+  onLoad () {
     if (wx.getStorageSync('User')) {
       wx.switchTab({ url: '../../pages/index/main' })
     }

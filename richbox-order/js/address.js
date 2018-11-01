@@ -25,14 +25,8 @@ new Vue({
     },
     mounted() {
         if(window.localStorage.getItem('userInfo')){
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
             var userInfo=JSON.parse(window.localStorage.getItem('userInfo'))
-            if(isAndroid){
-                userInfo=JSON.parse(userInfo)
-            }
             this.queryParams.userId=userInfo.userId
-            
         }else{
             this.$toast("获取用户信息失败！")
         }

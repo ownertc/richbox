@@ -310,11 +310,10 @@ export default {
       })
     }
   },
-  onShow () {
+  onLoad () {
     this.initData()
     this.queryParams.hotelId = this.$root.$mp.query.hotelId
     this.queryParams.dateTime = this.$root.$mp.query.dateBegin
-
     let currTime = new Date(formatTime(new Date())).getTime()
     if (wx.getStorageSync('dateType')) {
       switch (wx.getStorageSync('dateType')) {

@@ -59,7 +59,7 @@ export default {
       }
     }
   },
-  mounted () {
+  onLoad () {
     this.queryParams.hotelId = this.$root.$mp.query.hotelId
     this.queryParams.money = this.$root.$mp.query.money
     this.loadData()

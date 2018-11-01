@@ -204,7 +204,7 @@ export default {
   },
   created () {
   },
-  onShow () {
+  onLoad () {
     this.zoomDetailStatus = false
     this.userLists = []
     this.userLists.push(wx.getStorageSync('User'))

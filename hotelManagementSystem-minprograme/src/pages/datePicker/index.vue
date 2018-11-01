@@ -212,7 +212,7 @@ export default {
       this.getThirdCurrData(this.thirdMothn.tr_str, this.thirdMothn.n1str, this.thirdMothn.currDays)
     }
   },
-  onShow () {
+  onLoad () {
     this.hotelId = this.$root.$mp.query.hotelId
     this.dateType = this.$root.$mp.query.dateType
     this.getPriceList()

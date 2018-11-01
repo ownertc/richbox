@@ -150,7 +150,7 @@ export default {
       }
     }
   },
-  onShow () {
+  onLoad () {
     this.initData()
     if (this.$root.$mp.query.travalUser) {
       this.type = 2

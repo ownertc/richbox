@@ -118,7 +118,6 @@ export function paramsTime (date) {
 
   const t1 = [year, month, day].map(formatNumber).join('-')
   const t2 = [hour, minute, second].map(formatNumber).join(':')
-
   return `${t1} ${t2}`
 }
 export function validName (val) {

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {pushInvoiceHeader} from '@/utils/api'
+import {pushInvoiceHeader, invoiceHeaderDetail, invoiceHeaderEdite} from '@/utils/api'
 import {checkTaxpayerId} from '@/utils/index'
 export default {
   data () {
@@ -139,7 +139,7 @@ export default {
       this.invoice.InvoiceType = this.InvoiceType[e.target.value].Key
     },
     editTravalUser () {
-    /*   editTravalUsers(this.travalUser).then(res => {
+      invoiceHeaderEdite(this.invoice.Id, this.invoice).then(res => {
         if (res.Code === 200) {
           wx.showToast({
             title: '操作成功！', // 提示的内容,
@@ -147,11 +147,25 @@ export default {
             duration: 2000, // 延迟时间,
             mask: true, // 显示透明蒙层，防止触摸穿透,
             success: res => {
-              wx.navigateTo({ url: '../../pages/commonInfo/main' })
+              wx.navigateBack({
+                delta: 1
+              })
             }
           })
         }
-      }) */
+      })
+    },
+    getDetail (id) {
+      invoiceHeaderDetail(id).then(res => {
+        if (res.Code === 200) {
+          this.invoice = res.Data
+          if (this.invoice.InvoiceType === 'ITAAQY0001') {
+            this.taxTypeIndex = 0
+          } else if (this.invoice.InvoiceType === 'ITAAGR0001') {
+            this.taxTypeIndex = 1
+          }
+        }
+      })
     },
     addInvoice () {
       pushInvoiceHeader(this.invoice).then(res => {
@@ -172,13 +186,19 @@ export default {
       })
     },
     btnEvent () {
-      this.validInvoiceName()
-      this.validIdentifyNumber()
-      this.validCompanyAddress()
-      this.validCompanyPhone()
-      this.validBankName()
-      this.validBankAccount()
-      let valid = !this.invoiceErr.InvoiceName && !this.invoiceErr.IdentifyNumber && !this.invoiceErr.CompanyAddress && !this.invoiceErr.CompanyPhone && !this.invoiceErr.BankName && !this.invoiceErr.BankAccount
+      let valid = false
+      if (this.invoice.InvoiceType === 'ITAAQY0001') {
+        this.validInvoiceName()
+        this.validIdentifyNumber()
+        this.validCompanyAddress()
+        this.validCompanyPhone()
+        this.validBankName()
+        this.validBankAccount()
+        valid = !this.invoiceErr.InvoiceName && !this.invoiceErr.IdentifyNumber && !this.invoiceErr.CompanyAddress && !this.invoiceErr.CompanyPhone && !this.invoiceErr.BankName && !this.invoiceErr.BankAccount
+      } else if (this.invoice.InvoiceType === 'ITAAGR0001') {
+        this.validInvoiceName()
+        valid = !this.invoiceErr.InvoiceName
+      }
       if (valid) {
         if (this.type === 1) {
           this.addInvoice()
@@ -188,11 +208,11 @@ export default {
       }
     }
   },
-  onShow () {
+  onLoad () {
     this.initData()
-    if (this.$root.$mp.query.travalUser) {
+    if (this.$root.$mp.query.id) {
       this.type = 2
-      this.travalUser = JSON.parse(this.$root.$mp.query.travalUser)
+      this.getDetail(this.$root.$mp.query.id)
     } else {
       this.type = 1
     }
