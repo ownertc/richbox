@@ -1,6 +1,6 @@
 function request(){
    var service = axios.create({
-        baseURL: 'http://192.168.2.17:7001/api/', // api 的 base_url
+        baseURL: 'https://plus.richbox.biz/api/', // api 的 base_url
         timeout: 5000 // request timeout
       })
       // request interceptor

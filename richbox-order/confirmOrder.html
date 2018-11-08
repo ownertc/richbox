@@ -19,16 +19,16 @@
                 <P v-text="orderInfo.ReceiveAddress"></P>
            </div>
          <P style="font-size:14px;color:#000;padding:10px;border-bottom: 1px solid #eee">商品明细</P>
-         <ul class="order-list">
+         <ul class="order-list" >
              <li class="item" v-for="(item,index) in orderInfo.GoodsList" :key="index">
-                 <div style="width:50%"><P class="order-desc">{{item.Name}}</p><P class="order-desc" style="font-size: 12px">{{item.SpecDetailDesc}}</p></div>
+                 <div style="width:70%"><P class="order-desc">{{item.Name}}</p><P class="order-desc" style="font-size: 12px">{{item.SpecDetailDesc}}</p></div>
                  <p class="num" style="font-size:14px;color:#333">{{item.num}}</p>
                  <p class="price"><span>￥</span><span>{{(item.num*item.Price).toFixed(2)}}</span></p>
              </li>
              
          </ul>
-         <mt-field label="订单备注" placeholder="请输入备注信息" v-model="orderInfo.Remarks" style="font-size: 14px;"></mt-field>
-         <div class="footer footerBar">
+         <mt-field label="订单备注" placeholder="请输入备注信息" v-model="orderInfo.Remarks" style="font-size: 14px;margin-bottom: 100px" ></mt-field>
+         <div class="footer footerBar" style="background: #fff">
            <p class="price" style="margin-left: 2vw"><span style="font-size:14px;margin-right: 10px;">合计</span><span>￥{{orderInfo.Amount}}</span></p>
            <div class="gopay" @click="addOrder" v-if="btnStatus">去结算</div>
            <div class="gopay" v-if="!btnStatus">去结算</div>

@@ -91,6 +91,7 @@ export default {
     selectDay (date) {
       if (this.checkDayType === 1) {
         this.dateBegin = `${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(date).getDate()}`
+        this.dateBegin = this.stringify(new Date(this.dateBegin), 'yyyy-MM-dd')
       } else if (this.checkDayType === 2) {
         this.dateEnd = `${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(date).getDate()}`
       }
@@ -99,15 +100,14 @@ export default {
           title: '温馨提示',
           content: '入住时间不得小于当前日期！'
         })
-        this.dateBegin = this.currBegin
+        this.dateBegin = this.stringify(new Date(this.currBegin), 'yyyy-MM-dd')
         this.dateEnd = this.currEnd
       } else if (new Date(this.dateBegin).valueOf() >= new Date(this.dateEnd).valueOf()) {
         this.dateEnd = parseTime(new Date(new Date(this.dateBegin).valueOf() + 24 * 60 * 60 * 1000))
-      } else {
-        this.$emit('daySelect', this.checkDayType, date)
-        sessionStorage.setItem('dateBegin', this.dateBegin)
-        sessionStorage.setItem('dateEnd', this.dateEnd)
       }
+      this.$emit('daySelect', this.checkDayType, date)
+      window.sessionStorage.setItem('dateBegin', this.dateBegin)
+      window.sessionStorage.setItem('dateEnd', this.dateEnd)
       this.datepicker = false
     },
     goSeacher () {

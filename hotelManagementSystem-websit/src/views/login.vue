@@ -88,13 +88,16 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          login({PassWord: md5(this.pass), Mobile: this.formValidate.Mobile, Code: this.formValidate.Code}).then(res => {
+          let params = {}
+          params.PassWord = md5(this.pass)
+          params.Mobile = this.formValidate.Mobile
+          params.Code = this.formValidate.Code
+          login(params).then(res => {
             if (res.data.Code === 200) {
               Cookies.set('usertoken', res.data.Data.Token, {
                 expires: 1
               })
               this.$router.push({name: 'index'})
-              this.pass = ''
             } else if (res.data.ShowData === '密码输入错误') {
               this.$Message.warning({content: res.data.ShowData})
               this.formValidate.PassWord = ''
@@ -112,8 +115,9 @@ export default {
       this.$refs[name].resetFields()
     },
     getPassword (e) {
-      if (e.data) {
-        this.pass += e.data
+      let str = e.data ? e.data : event.srcElement.value[event.srcElement.value.length - 1]
+      if (str) {
+        this.pass += str
       } else {
         this.pass = this.pass.slice(0, this.pass.length - 1)
       }
